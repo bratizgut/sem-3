@@ -3,12 +3,7 @@ private:
 
 	int Count = 0;
 	std::map<std::string, int> Container; 
-	std::vector<std::pair<std::string, int>> Items;
-		
-	struct sort_pred {
-		bool operator()(const std::pair<std::string,int> &left, const std::pair<std::string,int> &right) {
-			return left.second > right.second;
-    }
+	std::vector<std::pair<int, std::string>> Items;
 	
 };
 	
@@ -18,26 +13,26 @@ public:
 	Parser(){
 		int Count = 0;
 		std::map<std::string, int> Container; 
-		std::vector<std::pair<std::string, int>> Items;
+		std::vector<std::pair<int, std::string>> Items;
 	}
 	
 	void MapSort(){
 		std::map<std::string, int>::iterator it;
 		
 		for (it = Parser::Container.begin(); it != Parser::Container.end(); it++)
-			Items.push_back(make_pair(it->first, it->second));
+			Items.push_back(make_pair(it->second, it->first));
 		
-		std::sort(Items.begin(), Items.end(), sort_pred());
+		std::sort(Items.begin(), Items.end(), std::greater<>());
 		
 	}
 	
 	void Recount(){
-		Parser::Count++;
-		if(Parser::Container.count(CurStr))
-			Parser::Container[CurStr]++;
+		Count++;
+		if(Container.count(CurStr))
+			Container[CurStr]++;
 		else
 			if(isalpha(CurStr[0]) || isdigit(CurStr[0]))
-				Parser::Container.insert(make_pair(CurStr, 1));
+				Container.insert(make_pair(CurStr, 1));
 		CurStr = {};
 	}
 	
@@ -45,6 +40,7 @@ public:
 		MapSort();
  
 		for (auto i = Items.begin(); i!= Items.end(); ++i)
-			out << i->first << ';' << i->second << ';' << (double)i->second / Count * 100 << "%;\n";
+			out << i->second << ';' << i->first << ';' << (double)i->first / Count * 100 << "%;\n";
 	}
+
 };
