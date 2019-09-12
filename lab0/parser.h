@@ -5,8 +5,6 @@ private:
 	std::map<std::string, int> Container; 
 	std::vector<std::pair<int, std::string>> Items;
 	
-};
-	
 public:
 	std::string CurStr = {};
 	
