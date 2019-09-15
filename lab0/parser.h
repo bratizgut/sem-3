@@ -15,9 +15,7 @@ public:
 	}
 	
 	void MapSort(){
-		std::map<std::string, int>::iterator it;
-		
-		for (it = Parser::Container.begin(); it != Parser::Container.end(); it++)
+		for (auto it = Parser::Container.begin(); it != Parser::Container.end(); it++)
 			Items.push_back(make_pair(it->second, it->first));
 		
 		std::sort(Items.begin(), Items.end(), std::greater<>());
