@@ -45,11 +45,13 @@ public:
 
             trits->container[index/4] = (trits->container[index/4] & ~(mask << (6 - 2 * (index % 4))));
             trits->container[index/4] = (trits->container[index/4] | ((unsigned char)val << (6 - 2 * (index % 4))));
+            
             return *this;
         }
 
         reference &operator=(reference a){
             *this = a.getTrit();
+            
             return *this;
         }
     };
