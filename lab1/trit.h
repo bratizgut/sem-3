@@ -81,5 +81,6 @@ std::istream& operator >> (std::istream &in, trit &a){
     }
 
     std::cout << "invalid value";
+    
     return in;
 }
