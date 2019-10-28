@@ -1,8 +1,16 @@
 #include "worker.h"
 
-int main(int argc, char **argv) {
+int main() {
+    worker w;
+    try {
+        w.parce("text.txt");
+    }
 
-    parcer w(argv[1]);
+    catch (const std::exception &ex){
+        std::cout << ex.what() << std::endl;
+    }
 
+    w.makeSequence();
+    
     return 0;
 }
