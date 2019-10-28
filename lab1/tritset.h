@@ -62,11 +62,11 @@ public:
         container.resize(sizeChar);
     };
 
-    reference operator[](int index){
+    reference operator[](size_t index){
         return reference(this, index);
     }
 
-    size_t getSize(){
+    size_t getSize() const{
         return sizeTrit;
     }
 
