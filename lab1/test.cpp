@@ -12,7 +12,7 @@ TEST_CASE(){
     REQUIRE( (c & c) == trit::Unknown );
     REQUIRE( (a & b) == trit::False );
     REQUIRE( (a & c) == trit::Unknown );
-    REQUIRE( (b & c) == trit::False );
+    REQUIRE( (c & b) == trit::False );
 
     REQUIRE( (a | a) == trit::True );
     REQUIRE( (b | b) == trit::False );
