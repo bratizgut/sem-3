@@ -47,7 +47,7 @@ TEST_CASE("operator trit()"){
     unita[1] = trit::False;
     REQUIRE( (trit)unita[0] == trit::True );
     REQUIRE( (trit)unita[1] == trit::False );
-    REQUIRE( (trit)unita[0] == trit::Unknown );
+    REQUIRE( (trit)unita[2] == trit::Unknown );
 }
 
 TEST_CASE("tritset operators"){
