@@ -3,7 +3,7 @@
 #include "tritset.h"
 
 
-TEST_CASE(){
+TEST_CASE("trit operations"){
 
     trit a = trit::True, b = trit::False, c = trit::Unknown;
 
@@ -24,7 +24,9 @@ TEST_CASE(){
     REQUIRE( ~a == trit::False );
     REQUIRE( ~b == trit::True );
     REQUIRE( ~c == trit::Unknown );
+}
 
+TEST_CASE("operator ="){
     tritset unita(20);
     tritset unitb(40);
     REQUIRE( unita.getSize() == 20);
@@ -37,22 +39,47 @@ TEST_CASE(){
     unitb[2] = trit::False;
     REQUIRE( unita[1] == trit::True );
     REQUIRE( unitb[2] == trit::False );
-    
+}
+
+TEST_CASE("operator trit()"){
+    tritset unita(20);
+    unita[0] = trit::True;
+    unita[1] = trit::False;
+    REQUIRE( (trit)unita[0] == trit::True );
+    REQUIRE( (trit)unita[1] == trit::False );
+    REQUIRE( (trit)unita[0] == trit::Unknown );
+}
+
+TEST_CASE("tritset operators"){
+    tritset unita(20);
+    tritset unitb(40);
+    for(size_t i = 0; i < unita.getSize(); i++)
+        unita[i] = trit::True;
+    for(size_t i = 0; i < unitb.getSize(); i++)
+        unitb[i] = trit::False;
+
     tritset unitc = unita & unitb;
     REQUIRE( unitc.getSize() == 40);
     for(size_t i = 0; i < unitc.getSize(); i++)
-        REQUIRE( unitc[i]  == (unita[i] & unitb[i]));
+        REQUIRE( unitc[i]  == trit::False);
 
     unitc = unita | unitb;
     REQUIRE( unitc.getSize() == 40);
     for(size_t i = 0; i < unitc.getSize(); i++)
-        REQUIRE( unitc[i]  == (unita[i] | unitb[i]));  
+        if(i < 20)
+            REQUIRE( unitc[i]  == trit::True);
+        else 
+            REQUIRE( unitc[i]  == trit::Unknown); 
 
     unitc = ~unita;
     REQUIRE( unitc.getSize() == 20);
     for(size_t i = 0; i < unitc.getSize(); i++)
-        REQUIRE( unitc[i]  == ~unita[i]); 
+        REQUIRE( unitc[i]  == trit::False); 
+}
 
+TEST_CASE("tritset methods"){
+    tritset unita(20);
+    tritset unitb(40);
     unita[4] = trit::True;
     REQUIRE( unita.length() == 5 );
     unita.shrink();
@@ -71,7 +98,6 @@ TEST_CASE(){
         unita[i] = trit::Unknown;
     for(size_t i = 30; i < 100; i++)
         unita[i] = trit::False;
-        unitc[99] = trit::True;
     REQUIRE( unita.getSize() == 100 );
     REQUIRE( unita.cardinality(trit::False) == 70 );
     REQUIRE( unita.cardinality(trit::True) == 10 );
